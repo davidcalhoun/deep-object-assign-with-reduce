@@ -1,7 +1,7 @@
 {
   "name": "deep-object-assign-with-reduce",
   "version": "1.0.2",
-  "description": "",
+  "description": "Deep merging of Objects with the same function signature as Object.assign()",
   "main": "dist/deep-object-assign-with-reduce.js",
   "scripts": {
     "dist": "./dist.sh",
@@ -12,8 +12,19 @@
     "type": "git",
     "url": "git+https://github.com/davidcalhoun/deep-object-assign-with-reduce.git"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "object",
+    "assign",
+    "object.assign",
+    "merge",
+    "combine",
+    "objects",
+    "defaults",
+    "deep",
+    "reduce"
+  ],
+  "author": "David Calhoun",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/davidcalhoun/deep-object-assign-with-reduce/issues"
   },
