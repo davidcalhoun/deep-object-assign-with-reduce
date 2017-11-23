@@ -2,6 +2,26 @@ const deepAssign = require('./dist/deep-object-assign-with-reduce-min');
 const assert = require('assert');
 
 describe('deepAssign', () => {
+	describe('readme examples', () => {
+		it('1', () => {
+			const result = deepAssign(
+				{},
+				{ dimensions: { width: 100, height: 100 } },
+				{ dimensions: { width: 200 } }
+			);
+			const expectedResult = { dimensions: { width: 200, height: 100 } };
+
+			assert.deepEqual(result, expectedResult);
+		});
+
+		it('2', () => {
+			const result = deepAssign({}, { numbers: [1, 2, 3] }, { numbers: [4, 5, 6] });
+			const expectedResult = { numbers: [1, 2, 3, 4, 5, 6] };
+
+			assert.deepEqual(result, expectedResult);
+		});
+	});
+
 	describe('mutates receiver object (like Object.assign)', () => {
 		it('1', () => {
 			let receiver = {};
@@ -240,6 +260,7 @@ describe('deepAssign', () => {
 		});
 
 		it('deep', () => {
+			const startTimeMS = Date.now();
 			const result = deepAssign({
 				foo: {
 					foo: {
@@ -276,6 +297,9 @@ describe('deepAssign', () => {
 				bar: true
 			};
 
+			const timeMS = Date.now() - startTimeMS;
+
+			assert.equal(timeMS < 10, true);
 			assert.deepEqual(result, expectedResult);
 		});
 

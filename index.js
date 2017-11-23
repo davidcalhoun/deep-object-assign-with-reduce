@@ -1,11 +1,11 @@
 const getType = val => {
-  let type;
+  let type = typeof val;
+
+  // Check for types that appear as "objects" but shouldn't be handled as such.
   if (Array.isArray(val)) {
     type = 'array';
   } else if (val instanceof Date) {
     type = 'date';
-  } else {
-    type = typeof val;
   }
 
   return type;
@@ -19,10 +19,13 @@ const reducer = (sum, val) => {
     const bothObjects = valType === 'object' && sumType === 'object';
 
     if (bothArrays) {
-      sum[key] = sum[key].concat(val[key]);
+      // Merge both arrays together.
+      sum[key] = [ ...sum[key], ...val[key] ];
     } else if (bothObjects) {
+      // Merge both objects together.  (Note: recursive)
       sum[key] = deepAssign({}, sum[key], val[key]);
     } else {
+      // Fallback: overwrite previously-set value.
       sum[key] = val[key];
     }
   }
@@ -30,13 +33,14 @@ const reducer = (sum, val) => {
   return sum;
 };
 
-const isUndefinedOrNull = obj => !(typeof obj === 'undefined' || obj === null);
+// Make sure inputs to reduce() are valid.
+const isValidType = obj => !(typeof obj === 'undefined' || obj === null);
 
 const deepAssign = (receiverObject, ...sourceObjects) => {
-  const objsFiltered = sourceObjects.filter(isUndefinedOrNull);
+  const sources = sourceObjects.filter(isValidType);
 
   // Note: intentionally mutates receiverObject, like Object.assign() does.
-  return objsFiltered.reduce(reducer, receiverObject);
+  return sources.reduce(reducer, receiverObject);
 };
 
 export default deepAssign;

@@ -17,6 +17,18 @@
     value: true
   });
 
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+        arr2[i] = arr[i];
+      }
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
@@ -24,13 +36,13 @@
   };
 
   var getType = function getType(val) {
-    var type = void 0;
+    var type = typeof val === 'undefined' ? 'undefined' : _typeof(val);
+
+    // Check for types that appear as "objects" but shouldn't be handled as such.
     if (Array.isArray(val)) {
       type = 'array';
     } else if (val instanceof Date) {
       type = 'date';
-    } else {
-      type = typeof val === 'undefined' ? 'undefined' : _typeof(val);
     }
 
     return type;
@@ -51,10 +63,13 @@
         var bothObjects = valType === 'object' && sumType === 'object';
 
         if (bothArrays) {
-          sum[key] = sum[key].concat(val[key]);
+          // Merge both arrays together.
+          sum[key] = [].concat(_toConsumableArray(sum[key]), _toConsumableArray(val[key]));
         } else if (bothObjects) {
+          // Merge both objects together.  (Note: recursive)
           sum[key] = deepAssign({}, sum[key], val[key]);
         } else {
+          // Fallback: overwrite previously-set value.
           sum[key] = val[key];
         }
       }
@@ -76,7 +91,8 @@
     return sum;
   };
 
-  var isUndefinedOrNull = function isUndefinedOrNull(obj) {
+  // Make sure inputs to reduce() are valid.
+  var isValidType = function isValidType(obj) {
     return !(typeof obj === 'undefined' || obj === null);
   };
 
@@ -85,10 +101,10 @@
       sourceObjects[_key - 1] = arguments[_key];
     }
 
-    var objsFiltered = sourceObjects.filter(isUndefinedOrNull);
+    var sources = sourceObjects.filter(isValidType);
 
     // Note: intentionally mutates receiverObject, like Object.assign() does.
-    return objsFiltered.reduce(reducer, receiverObject);
+    return sources.reduce(reducer, receiverObject);
   };
 
   exports.default = deepAssign;
