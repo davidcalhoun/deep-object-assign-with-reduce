@@ -20,7 +20,7 @@ const reducer = (sum, val) => {
 
     if (bothArrays) {
       // Merge both arrays together.
-      sum[key] = [ ...sum[key], ...val[key] ];
+      sum[key] = [...sum[key], ...val[key]];
     } else if (bothObjects) {
       // Merge both objects together.  (Note: recursive)
       sum[key] = deepAssign({}, sum[key], val[key]);
@@ -34,7 +34,7 @@ const reducer = (sum, val) => {
 };
 
 // Make sure inputs to reduce() are valid.
-const isValidType = obj => !(typeof obj === 'undefined' || obj === null);
+const isValidType = obj => typeof obj !== 'undefined' && obj !== null;
 
 const deepAssign = (receiverObject, ...sourceObjects) => {
   const sources = sourceObjects.filter(isValidType);

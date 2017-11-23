@@ -93,7 +93,7 @@
 
   // Make sure inputs to reduce() are valid.
   var isValidType = function isValidType(obj) {
-    return !(typeof obj === 'undefined' || obj === null);
+    return typeof obj !== 'undefined' && obj !== null;
   };
 
   var deepAssign = function deepAssign(receiverObject) {
