@@ -70,6 +70,16 @@ describe('deepAssign', () => {
 		});
 	});
 
+	describe('symbols', () => {
+		it('as keys', () => {
+			const sym = Symbol();
+			const result = deepAssign({ }, { [sym]: 1 }, { [sym]: 2 });
+			const expectedResult = { [sym]: 2 };
+
+			assert.deepEqual(result, expectedResult);
+		});
+	});
+
 	describe('basic', () => {
 		it('merges simple objects 1', () => {
 			const result = deepAssign({}, { a: 3 }, { a: 1, b: 2 });

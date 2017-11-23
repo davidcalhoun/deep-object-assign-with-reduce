@@ -21,7 +21,9 @@
     "objects",
     "defaults",
     "deep",
-    "reduce"
+    "reduce",
+    "options",
+    "defaults"
   ],
   "author": "David Calhoun",
   "license": "MIT",
