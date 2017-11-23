@@ -5,7 +5,8 @@
   "main": "dist/deep-object-assign-with-reduce.js",
   "scripts": {
     "dist": "./dist.sh",
-    "test": "./node_modules/mocha/bin/mocha test.js"
+    "test": "./node_modules/mocha/bin/mocha test.js",
+    "patch": "npm version patch && npm publish && git push --tags"
   },
   "repository": {
     "type": "git",
