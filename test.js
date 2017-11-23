@@ -1,4 +1,4 @@
-const deepAssign = require('./dist/deep-object-assign-with-reduce');
+const deepAssign = require('./dist/deep-object-assign-with-reduce-min');
 const assert = require('assert');
 
 describe('deepAssign', () => {

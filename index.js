@@ -12,9 +12,7 @@ const getType = val => {
 };
 
 const reducer = (sum, val) => {
-  const keys = Object.keys(val);
-
-  for (const key of keys) {
+  for (const key of Object.keys(val)) {
     const sumType = getType(sum[key]);
     const valType = getType(val[key]);
     const bothArrays = valType === 'array' && sumType === 'array';
