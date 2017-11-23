@@ -1,6 +1,6 @@
 {
   "name": "deep-object-assign-with-reduce",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/deep-object-assign-with-reduce.js",
   "scripts": {
