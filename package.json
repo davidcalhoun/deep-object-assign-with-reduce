@@ -6,7 +6,7 @@
   "scripts": {
     "dist": "./dist.sh",
     "test": "./node_modules/mocha/bin/mocha test.js",
-    "patch": "npm version patch && npm publish && git push --tags"
+    "patch": "npm version patch && npm publish && git push --tags && git push"
   },
   "repository": {
     "type": "git",
