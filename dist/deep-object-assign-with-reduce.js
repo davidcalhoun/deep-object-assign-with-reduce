@@ -35,19 +35,6 @@
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
   };
 
-  var getType = function getType(val) {
-    var type = typeof val === 'undefined' ? 'undefined' : _typeof(val);
-
-    // Check for types that appear as "objects" but shouldn't be handled as such.
-    if (Array.isArray(val)) {
-      type = 'array';
-    } else if (val instanceof Date) {
-      type = 'date';
-    }
-
-    return type;
-  };
-
   var reducer = function reducer(sum, val) {
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
@@ -57,10 +44,13 @@
       for (var _iterator = Object.keys(val)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var key = _step.value;
 
-        var sumType = getType(sum[key]);
-        var valType = getType(val[key]);
-        var bothArrays = valType === 'array' && sumType === 'array';
-        var bothObjects = valType === 'object' && sumType === 'object';
+        var both = [val[key], sum[key]];
+        var bothArrays = both.filter(function (a) {
+          return Array.isArray(a);
+        }).length === 2;
+        var bothObjects = both.filter(function (a) {
+          return (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && !Array.isArray(a) && !(a instanceof Date);
+        }).length === 2;
 
         if (bothArrays) {
           // Merge both arrays together.
@@ -101,10 +91,8 @@
       sourceObjects[_key - 1] = arguments[_key];
     }
 
-    var sources = sourceObjects.filter(isValidType);
-
     // Note: intentionally mutates receiverObject, like Object.assign() does.
-    return sources.reduce(reducer, receiverObject);
+    return sourceObjects.filter(isValidType).reduce(reducer, receiverObject);
   };
 
   exports.default = deepAssign;
