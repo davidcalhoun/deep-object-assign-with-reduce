@@ -20,6 +20,26 @@ describe('deepAssign', () => {
 
 			assert.deepEqual(result, expectedResult);
 		});
+
+		it('3', () => {
+			const result = deepAssign({}, { a: { b: 1 } }, { a: { c: 2 } });
+			const expectedResult = { a: { b: 1, c: 2 } };
+
+			assert.deepEqual(result, expectedResult);
+		});
+
+		it('super deep', () => {
+			const startTimeMS = Date.now();
+			const obj1 = { a: { b: { c: { d: { e: { f: { g: { h: { i: { j: 1 } } } } } } } } } };
+			const obj2 = { a: { b: { c: { d: { e: { f: { g: { h: { i: { foo: 'bar' } } } } } } } } } };
+			const result = deepAssign({}, obj1, obj2);
+			const expectedResult = { a: { b: { c: { d: { e: { f: { g: { h: { i: { j: 1, foo: 'bar' } } } } } } } } } };
+
+			const timeMS = Date.now() - startTimeMS;
+
+			assert.equal(timeMS < 5, true);
+			assert.deepEqual(result, expectedResult);
+		});
 	});
 
 	describe('mutates receiver object (like Object.assign)', () => {
@@ -309,7 +329,7 @@ describe('deepAssign', () => {
 
 			const timeMS = Date.now() - startTimeMS;
 
-			assert.equal(timeMS < 10, true);
+			assert.equal(timeMS < 5, true);
 			assert.deepEqual(result, expectedResult);
 		});
 
