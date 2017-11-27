@@ -45,12 +45,12 @@
         var key = _step.value;
 
         var both = [val[key], sum[key]];
-        var bothArrays = both.filter(function (a) {
+        var bothArrays = both.every(function (a) {
           return Array.isArray(a);
-        }).length === 2;
-        var bothObjects = both.filter(function (a) {
+        });
+        var bothObjects = both.every(function (a) {
           return (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && !Array.isArray(a) && !(a instanceof Date);
-        }).length === 2;
+        });
 
         if (bothArrays) {
           // Merge both arrays together.

@@ -1,8 +1,8 @@
 const reducer = (sum, val) => {
   for (const key of Object.keys(val)) {
     const both = [val[key], sum[key]];
-    const bothArrays = both.filter(a => Array.isArray(a)).length === 2;
-    const bothObjects = both.filter(a => typeof a === 'object' && !Array.isArray(a) && !(a instanceof Date)).length === 2;
+    const bothArrays = both.every(a => Array.isArray(a));
+    const bothObjects = both.every(a => typeof a === 'object' && !Array.isArray(a) && !(a instanceof Date));
 
     if (bothArrays) {
       // Merge both arrays together.

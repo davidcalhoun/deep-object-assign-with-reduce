@@ -6,7 +6,7 @@
 Deep `Object.assign()` written with modern, functional JavaScript.  Inspired by `deep-assign` and
 `Object.assign`.
 
-No dependencies and very tiny - only 666 bytes gzipped.
+No dependencies and very tiny - only 632 bytes gzipped.
 
 ## Installation
 In your project directory, type:
