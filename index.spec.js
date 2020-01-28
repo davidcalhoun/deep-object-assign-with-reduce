@@ -1,9 +1,8 @@
-const deepAssign = require('./dist/deep-object-assign-with-reduce-min');
-const assert = require('assert');
+import deepAssign from "./index";
 
 describe('deepAssign', () => {
 	describe('readme examples', () => {
-		it('1', () => {
+		test('1', () => {
 			const result = deepAssign(
 				{},
 				{ dimensions: { width: 100, height: 100 } },
@@ -11,24 +10,24 @@ describe('deepAssign', () => {
 			);
 			const expectedResult = { dimensions: { width: 200, height: 100 } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('2', () => {
+		test('2', () => {
 			const result = deepAssign({}, { numbers: [1, 2, 3] }, { numbers: [4, 5, 6] });
 			const expectedResult = { numbers: [1, 2, 3, 4, 5, 6] };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('3', () => {
+		test('3', () => {
 			const result = deepAssign({}, { a: { b: 1 } }, { a: { c: 2 } });
 			const expectedResult = { a: { b: 1, c: 2 } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('super deep', () => {
+		test('super deep', () => {
 			const startTimeMS = Date.now();
 			const obj1 = { a: { b: { c: { d: { e: { f: { g: { h: { i: { j: 1 } } } } } } } } } };
 			const obj2 = { a: { b: { c: { d: { e: { f: { g: { h: { i: { foo: 'bar' } } } } } } } } } };
@@ -37,259 +36,259 @@ describe('deepAssign', () => {
 
 			const timeMS = Date.now() - startTimeMS;
 
-			assert.equal(timeMS < 5, true);
-			assert.deepEqual(result, expectedResult);
+			expect(timeMS < 5).toBe(true);
+			expect(result).toEqual(expectedResult);
 		});
 	});
 
 	describe('mutates receiver object (like Object.assign)', () => {
-		it('1', () => {
+		test('1', () => {
 			let receiver = {};
 			deepAssign(receiver, { foo: 1 });
 
-			assert.deepEqual(receiver.foo, 1);
+			expect(receiver.foo).toEqual(1);
 		});
 
-		it('2', () => {
+		test('2', () => {
 			let receiver = { a: { b: 1 } };
 			const result = deepAssign(receiver, { a: { b: 2 } }, { a: { b: 3 } });
-			assert.deepEqual(result.a.b, 3);
-			assert.deepEqual(receiver.a.b, 3);
+			expect(result.a.b).toEqual(3);
+			expect(receiver.a.b).toEqual(3);
 		});
 	});
 
 	describe('does not mutate source objects', () => {
-		it('1', () => {
+		test('1', () => {
 			let receiver = { foo: 1 };
 			let source1 = { foo: 2 };
 			let source2 = { foo: 3 };
 			deepAssign(receiver, source1, source2);
 
-			assert.deepEqual(source1.foo, 2);
-			assert.deepEqual(source2.foo, 3);
+			expect(source1.foo).toBe(2);
+			expect(source2.foo).toBe(3);
 		});
 	});
 
 	describe('arrays', () => {
-		it('merges arrays', () => {
+		test('merges arrays', () => {
 			const result = deepAssign({}, { foo: [1,2,3] }, { foo: [4,5,6] });
 			const expectedResult = { foo: [1,2,3,4,5,6] };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 	});
 
 	describe('functions', () => {
-		it('fn1 overrides fn2', () => {
+		test('fn1 overrides fn2', () => {
 			const fn1 = () => 1;
 			const fn2 = () => 2;
 			const result = deepAssign({}, { foo: fn1 }, { foo: fn2 });
 			const expectedResult = { foo: fn2 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 	});
 
 	describe('symbols', () => {
-		it('as keys', () => {
+		test('as keys', () => {
 			const sym = Symbol();
 			const result = deepAssign({ }, { [sym]: 1 }, { [sym]: 2 });
 			const expectedResult = { [sym]: 2 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 	});
 
 	describe('basic', () => {
-		it('merges simple objects 1', () => {
+		test('merges simple objects 1', () => {
 			const result = deepAssign({}, { a: 3 }, { a: 1, b: 2 });
 			const expectedResult = { a: 1, b: 2};
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('merges simple objects 2', () => {
+		test('merges simple objects 2', () => {
 			const result = deepAssign({}, { foo: 0 }, { bar: 1 });
 			const expectedResult = { foo: 0, bar: 1 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('handles null and undefined inputs 1', () => {
+		test('handles null and undefined inputs 1', () => {
 			const result = deepAssign({}, null, undefined, { foo: 'bar' });
 			const expectedResult = { foo: 'bar' };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('handles null and undefined inputs 2', () => {
+		test('handles null and undefined inputs 2', () => {
 			const result = deepAssign({}, { foo: 0 }, null, undefined, { bar: 1 }, null);
 			const expectedResult = { foo: 0, bar: 1 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('handles null and undefined inputs 2', () => {
+		test('handles null and undefined inputs 2', () => {
 			const result = deepAssign({}, { foo: 0 }, null, undefined, { bar: 1 }, null);
 			const expectedResult = { foo: 0, bar: 1 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('assigns to null targets', () => {
+		test('assigns to null targets', () => {
 			const result = deepAssign({}, { foo: null }, { foo: {  } });
 			const expectedResult = { foo: {  } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('merges values even if undefined', () => {
+		test('merges values even if undefined', () => {
 			const result = deepAssign({}, { foo: 'f' }, { foo: undefined });
 			const expectedResult = { foo: undefined };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides number', () => {
+		test('object overrides number', () => {
 			const result = deepAssign({}, { answer: 42 }, { answer: { rainbows: 'many' } });
 			const expectedResult = { answer: { rainbows: 'many' } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('number overrides object', () => {
+		test('number overrides object', () => {
 			const result = deepAssign({}, { answer: { rainbows: 'many' } }, { answer: 42 });
 			const expectedResult = { answer: 42 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides boolean', () => {
+		test('object overrides boolean', () => {
 			const result = deepAssign({}, { answer: true }, { answer: { rainbows: 'many' } });
 			const expectedResult = { answer: { rainbows: 'many' } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('boolean overrides object', () => {
+		test('boolean overrides object', () => {
 			const result = deepAssign({}, { answer: { rainbows: 'many' } }, { answer: true });
 			const expectedResult = { answer: true };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides string', () => {
+		test('object overrides string', () => {
 			const result = deepAssign({}, { answer: 'fff' }, { answer: { rainbows: 'many' } });
 			const expectedResult = { answer: { rainbows: 'many' } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('string overrides object', () => {
+		test('string overrides object', () => {
 			const result = deepAssign({}, { answer: { rainbows: 'many' } }, { answer: 'fff' });
 			const expectedResult = { answer: 'fff' };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides date', () => {
+		test('object overrides date', () => {
 			const date = new Date(1511410546435);
 			const result = deepAssign({}, { answer: date }, { answer: { rainbows: 'many' } });
 			const expectedResult = { answer: { rainbows: 'many' } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('date overrides object', () => {
+		test('date overrides object', () => {
 			const date = new Date(1511410546435);
 			const result = deepAssign({}, { answer: { rainbows: 'many' } }, { answer: date });
 			const expectedResult = { answer: date };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides array', () => {
+		test('object overrides array', () => {
 			const result = deepAssign({}, { answer: [1, 2, 3] }, { answer: { rainbows: 'many' } });
 			const expectedResult = { answer: { rainbows: 'many' } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('array overrides object', () => {
+		test('array overrides object', () => {
 			const result = deepAssign({}, { answer: { rainbows: 'many' } }, { answer: [1, 2, 3] });
 			const expectedResult = { answer: [1, 2, 3] };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('function overrides object', () => {
+		test('function overrides object', () => {
 			const fn = () => 1;
 			const result = deepAssign({}, { answer: { rainbows: 'many' } }, { answer: fn });
 			const expectedResult = { answer: fn };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides function', () => {
+		test('object overrides function', () => {
 			const fn = () => 1;
 			const result = deepAssign({}, { answer: fn }, { answer: { rainbows: 'many' } });
 			const expectedResult = { answer: { rainbows: 'many' } };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('symbol overrides object', () => {
+		test('symbol overrides object', () => {
 			const symbol = Symbol();
 			const result = deepAssign({}, { foo: {} }, { foo: symbol });
 			const expectedResult = { foo: symbol };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides symbol', () => {
+		test('object overrides symbol', () => {
 			const symbol = Symbol();
 			const result = deepAssign({}, { foo: symbol }, { foo: {} });
 			const expectedResult = { foo: {} };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('regexp overrides object', () => {
+		test('regexp overrides object', () => {
 			const regexp = new RegExp();
 			const result = deepAssign({}, { foo: {} }, { foo: regexp });
 			const expectedResult = { foo: regexp };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('object overrides regexp', () => {
+		test('object overrides regexp', () => {
 			const regexp = new RegExp();
 			const result = deepAssign({}, { foo: regexp }, { foo: {} });
-			const expectedResult = { foo: regexp };
+			const expectedResult = { foo: {} };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('multiple objects', () => {
+		test('multiple objects', () => {
 			const result = deepAssign({foo: 0}, {bar: 1}, {bar: 2}, {foo: 3});
 			const expectedResult = { bar: 2, foo: 3 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('doesnt iterate prototype props', () => {
+		test('doesnt iterate prototype props', () => {
 			const Unicorn = function() {};
 			Unicorn.prototype.bar = 1;
 			const unicorn = new Unicorn();
-			assert.deepEqual(unicorn.bar, 1);
+			expect(unicorn.bar).toBe(1);
 
 			const result = deepAssign(unicorn, {foo: 2});
 			const expectedResult = { foo: 2 };
 
-			assert.deepEqual(result, expectedResult);
+			expect(result).toEqual(expectedResult);
 		});
 
-		it('deep', () => {
+		test('deep', () => {
 			const startTimeMS = Date.now();
 			const result = deepAssign({
 				foo: {
@@ -329,8 +328,8 @@ describe('deepAssign', () => {
 
 			const timeMS = Date.now() - startTimeMS;
 
-			assert.equal(timeMS < 5, true);
-			assert.deepEqual(result, expectedResult);
+			expect(timeMS < 5).toBe(true);
+			expect(result).toEqual(expectedResult);
 		});
 
 

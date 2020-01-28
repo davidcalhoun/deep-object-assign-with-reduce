@@ -4,13 +4,19 @@
   "description": "Minimalist deep merging of Objects with the same function signature as Object.assign()",
   "main": "dist/deep-object-assign-with-reduce.js",
   "scripts": {
-    "dist": "./dist.sh",
-    "test": "./node_modules/mocha/bin/mocha test.js",
+    "build": "rm -rf dist && rollup --config",
+    "test": "jest",
     "patch": "npm version patch && npm publish && git push --tags && git push"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidcalhoun/deep-object-assign-with-reduce.git"
+  },
+  "browser": "dist/deep-object-assign.umd.js",
+  "module": "dist/deep-object-assign.esm.js",
+  "type": "module",
+  "engines": {
+    "node": ">=13"
   },
   "keywords": [
     "object",
@@ -32,12 +38,12 @@
   },
   "homepage": "https://github.com/davidcalhoun/deep-object-assign-with-reduce#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "mocha": "^4.0.1",
-    "uglify-es": "^3.1.10"
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "rollup": "^1.30.1",
+    "rollup-plugin-babel": "^4.3.3"
   }
 }
