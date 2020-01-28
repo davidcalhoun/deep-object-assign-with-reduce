@@ -6,7 +6,9 @@
   "scripts": {
     "build": "rm -rf dist && rollup --config",
     "test": "jest",
-    "patch": "npm version patch && npm publish && git push --tags && git push"
+    "patch": "npm version patch && npm publish && git push --tags && git push",
+    "minor": "npm version minor && npm publish && git push --tags && git push",
+    "major": "npm version major && npm publish && git push --tags && git push"
   },
   "repository": {
     "type": "git",
