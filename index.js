@@ -7,14 +7,8 @@ const getReducer = (options = {}) => {
 
     for (const key of keys) {
       const both = [val[key], sum[key]];
-      const bothArrays = both.every(a => Array.isArray(a));
-      const bothObjects = both.every(
-        a =>
-          typeof a === "object" &&
-          !Array.isArray(a) &&
-          !(a instanceof Date) &&
-          !(a instanceof RegExp)
-      );
+      const bothArrays = both.every(Array.isArray);
+      const bothObjects = both.every(isObject);
 
       if (bothArrays && !overwriteArrays) {
         // Merge both arrays together.
@@ -32,28 +26,41 @@ const getReducer = (options = {}) => {
   };
 };
 
+const isObject = val => {
+  return (
+    typeof val === "object" &&
+    !Array.isArray(val) &&
+    !(val instanceof Date) &&
+    !(val instanceof RegExp)
+  );
+};
+
 // Makes sure inputs to reduce() are valid.
 const isValidType = obj => typeof obj !== "undefined" && obj !== null;
 
 /**
  * Allows for customizing array and object merging behavior.
  */
-export const deepAssignOptions = (options = {}, receiverObject, ...sourceObjects) => {
+export const deepAssignOptions = (
+  options = {},
+  receiverObject,
+  ...sourceObjects
+) => {
   const reducer = getReducer(options);
 
-  // Note: intentionally mutates receiverObject, just like Object.assign().
   return sourceObjects.filter(isValidType).reduce(reducer, receiverObject);
 };
 
 /**
- * With default options.
+ * With default options, merging arrays and objects.
  */
-const deepAssign = (receiverObject, ...sourceObjects) => {
+export const deepAssign = (receiverObject, ...sourceObjects) => {
   const defaultOptions = {
     overwriteArrays: false,
     overwriteObjects: false
-  }
+  };
 
+  // Note: intentionally mutates receiverObject, just like Object.assign().
   return deepAssignOptions(defaultOptions, receiverObject, ...sourceObjects);
 };
 
