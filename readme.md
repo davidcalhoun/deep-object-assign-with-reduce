@@ -17,7 +17,11 @@ or
 
 `yarn add deep-object-assign-with-reduce`
 
-## Quick examples
+## Changelog
+* `1.2.0` - added `deepAssignOptions` to give more control over array and object merging
+* `1.1.0` - fixed RegExp as values, Symbols as keys.  Moved to Rollup, Jest.  Updated Babel.
+
+## Examples
 
 ### Merge complex objects
 ```js
@@ -33,6 +37,19 @@ import deepAssign from 'deep-object-assign-with-reduce';
 
 deepAssign({}, { numbers: [1, 2, 3] }, { numbers: [4, 5, 6] });
 // -> { numbers: [1, 2, 3, 4, 5, 6] }
+```
+
+### Custom overwriting behavior
+`deepAssign` merges objects and arrays by default.  If you want to disable this behavior and instead overwrite objects and/or arrays, you can use `deepAssignOptions` instead, which accepts an `options` object as the first parameter:
+
+```js
+import { deepAssignOptions } from 'deep-object-assign-with-reduce';
+
+deepAssignOptions({overwriteArrays: true}, {}, { numbers: [1, 2] }, { numbers: [3, 4] });
+// -> { numbers: [3, 4] }
+
+deepAssignOptions({overwriteObjects: true}, {}, { a: { b: 1 } }, { a: { c: 2 } });
+// -> { a: { c: 2 } }
 ```
 
 ## Why not just use `Object.assign()` or Object spread?

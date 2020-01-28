@@ -1,4 +1,4 @@
-import deepAssign from "./index";
+import deepAssign, { deepAssignOptions } from "./index";
 
 describe('deepAssign', () => {
 	describe('readme examples', () => {
@@ -331,7 +331,29 @@ describe('deepAssign', () => {
 			expect(timeMS < 5).toBe(true);
 			expect(result).toEqual(expectedResult);
 		});
+	});
+});
 
 
+describe("deepAssignOptions", () => {
+	test('array overwrite', () => {
+		const result = deepAssignOptions({overwriteArrays: true}, {}, { numbers: [1, 2, 3] }, { numbers: [4, 5, 6] });
+		const expectedResult = { numbers: [4, 5, 6] };
+
+		expect(result).toEqual(expectedResult);
+	});
+
+	test('object overwrite', () => {
+		const result = deepAssignOptions({overwriteObjects: true}, {}, { a: { b: 1 } }, { a: { c: 2 } });
+		const expectedResult = { a: { c: 2 } };
+
+		expect(result).toEqual(expectedResult);
+	});
+
+	test('object overwrite and array overwrite', () => {
+		const result = deepAssignOptions({overwriteArrays: true, overwriteObjects: true}, {}, { a: { b: 1 }, arr: [1, 2, 3] }, { a: { c: 2 }, arr: [4, 5, 6] });
+		const expectedResult = { a: { c: 2 }, arr: [4, 5, 6] };
+
+		expect(result).toEqual(expectedResult);
 	});
 });
