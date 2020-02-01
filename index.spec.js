@@ -1,4 +1,4 @@
-import deepAssign, { deepAssignOptions } from "./index";
+import { deepAssign, deepAssignOptions } from "./index";
 
 describe("deepAssign", () => {
 	describe("readme examples", () => {
