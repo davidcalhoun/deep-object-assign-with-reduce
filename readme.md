@@ -3,10 +3,9 @@
 [![Downloads][downloads-image]][npm-url]
 
 ## Introduction
-Deep `Object.assign()` written with modern, functional JavaScript.  Inspired by `deep-assign` and
-`Object.assign`.
+Deep `Object.assign()` written with modern, functional JavaScript.  Inspired by `deep-assign` and the need for a deeper `Object.assign`.
 
-No dependencies and very tiny - only 632 bytes gzipped.
+No dependencies and very tiny - only ~450 bytes gzipped.
 
 ## Installation
 In your project directory, type:
@@ -18,6 +17,7 @@ or
 `yarn add deep-object-assign-with-reduce`
 
 ## Changelog
+* `2.0.0` - dropped IE 11 support in order to dramatically reduce filesize.
 * `1.2.0` - added `deepAssignOptions` to give more control over array and object merging
 * `1.1.0` - fixed RegExp as values, Symbols as keys.  Moved to Rollup, Jest.  Updated Babel.
 
@@ -25,7 +25,7 @@ or
 
 ### Merge complex objects
 ```js
-import deepAssign from 'deep-object-assign-with-reduce';
+import { deepAssign } from 'deep-object-assign-with-reduce';
 
 deepAssign({}, { dimensions: { width: 100, height: 100 } }, { dimensions: { width: 200 } });
 // -> { dimensions: { width: 200, height: 100 } }
@@ -33,7 +33,7 @@ deepAssign({}, { dimensions: { width: 100, height: 100 } }, { dimensions: { widt
 
 ### Merge arrays
 ```js
-import deepAssign from 'deep-object-assign-with-reduce';
+import { deepAssign } from 'deep-object-assign-with-reduce';
 
 deepAssign({}, { numbers: [1, 2, 3] }, { numbers: [4, 5, 6] });
 // -> { numbers: [1, 2, 3, 4, 5, 6] }
