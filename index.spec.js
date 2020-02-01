@@ -64,7 +64,7 @@ describe("deepAssign", () => {
 
 			const timeMS = Date.now() - startTimeMS;
 
-			expect(timeMS < 5).toBe(true);
+			expect(timeMS < 50).toBe(true);
 			expect(result).toEqual(expectedResult);
 		});
 	});
