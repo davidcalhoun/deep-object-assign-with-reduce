@@ -15,7 +15,7 @@ const getReducer = (options = {}) => {
         sum[key] = [...sum[key], ...val[key]];
       } else if (bothObjects && !overwriteObjects) {
         // Recursively merge both objects together.
-        sum[key] = deepAssign({}, sum[key], val[key]);
+        sum[key] = deepAssignOptions(options, {}, sum[key], val[key]);
       } else {
         // Fallthrough: overwrite previously-set value.
         sum[key] = val[key];

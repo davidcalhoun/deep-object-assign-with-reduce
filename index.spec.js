@@ -452,6 +452,18 @@ describe("deepAssignOptions", () => {
 		expect(result).toEqual(expectedResult);
 	});
 
+	test("deep array overwrite", () => {
+		const result = deepAssignOptions(
+			{ overwriteArrays: true, overwriteObjects: false },
+			{},
+			{ a: { numbers: [1, 2, 3] } },
+			{ a: { numbers: [4, 5, 6] } }
+		);
+		const expectedResult = { a: { numbers: [4, 5, 6] } };
+
+		expect(result).toEqual(expectedResult);
+	});
+
 	test("object overwrite", () => {
 		const result = deepAssignOptions(
 			{ overwriteObjects: true },
