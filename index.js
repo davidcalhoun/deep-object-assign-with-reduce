@@ -31,7 +31,8 @@ const isObject = val => {
     typeof val === "object" &&
     !Array.isArray(val) &&
     !(val instanceof Date) &&
-    !(val instanceof RegExp)
+    !(val instanceof RegExp) &&
+    val !== null
   );
 };
 

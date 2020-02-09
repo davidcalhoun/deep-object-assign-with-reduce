@@ -343,6 +343,13 @@ describe("deepAssign", () => {
 			expect(result).toEqual(expectedResult);
 		});
 
+		test("null handling", () => {
+			const result = deepAssign({}, { foo: {} }, { foo: null });
+			const expectedResult = { foo: null };
+
+			expect(result).toEqual(expectedResult);
+		});
+
 		test("object overrides symbol", () => {
 			const symbol = Symbol();
 			const result = deepAssign({}, { foo: symbol }, { foo: {} });
