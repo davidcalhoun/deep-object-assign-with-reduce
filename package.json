@@ -41,11 +41,11 @@
   "homepage": "https://github.com/davidcalhoun/deep-object-assign-with-reduce#readme",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
-    "rollup": "^2.0.3",
+    "rollup": "^2.1.0",
     "rollup-plugin-babel": "^4.4.0"
   }
 }
