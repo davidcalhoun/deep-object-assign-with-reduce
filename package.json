@@ -44,10 +44,10 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "jest": "^25.2.2",
-    "prettier": "^2.0.2",
-    "rollup": "^2.2.0",
+    "@babel/preset-env": "^7.9.5",
+    "jest": "^25.3.0",
+    "prettier": "^2.0.4",
+    "rollup": "^2.6.1",
     "rollup-plugin-babel": "^4.4.0"
   }
 }
