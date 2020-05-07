@@ -1,6 +1,6 @@
 {
   "name": "deep-object-assign-with-reduce",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Minimalist deep merging of Objects with the same function signature as Object.assign()",
   "main": "index.js",
   "scripts": {
