@@ -8,6 +8,8 @@ Deep `Object.assign()` written with modern, functional JavaScript.  Inspired by 
 No dependencies and very tiny - only ~450 bytes gzipped.
 
 ## Installation
+Requires [Node.js](https://nodejs.org) 10+, which comes with `npm`.
+
 In your project directory, type:
 
 `npm install deep-object-assign-with-reduce`
