@@ -19,6 +19,7 @@ or
 `yarn add deep-object-assign-with-reduce`
 
 ## Changelog
+* `3.0.0` - dropped Node 8 and 9 support.  Please use `2.x` if you wish to use an older version of Node.
 * `2.0.0` - dropped IE 11 support in order to dramatically reduce filesize.
 * `1.2.0` - added `deepAssignOptions` to give more control over array and object merging
 * `1.1.0` - fixed RegExp as values, Symbols as keys.  Moved to Rollup, Jest.  Updated Babel.
