@@ -2,9 +2,11 @@
   "name": "deep-object-assign-with-reduce",
   "version": "3.0.0",
   "description": "Minimalist deep merging of Objects with the same function signature as Object.assign()",
-  "main": "index.js",
+  "main": "dist/deep-object-assign.umd.js",
+  "module": "dist/deep-object-assign.esm.js",
   "scripts": {
     "build": "rm -rf dist && rollup --config",
+    "prepare": "npm build",
     "test": "jest",
     "patch": "npm version patch && npm publish && git push --tags && git push",
     "minor": "npm version minor && npm publish && git push --tags && git push",
@@ -17,7 +19,6 @@
     "url": "git+https://github.com/davidcalhoun/deep-object-assign-with-reduce.git"
   },
   "browser": "dist/deep-object-assign.umd.js",
-  "module": "dist/deep-object-assign.esm.js",
   "type": "module",
   "engines": {
     "node": ">=13"
